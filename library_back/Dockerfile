@@ -1,14 +1,8 @@
-FROM python:latest
-
-WORKDIR /api
-
-COPY requirements.txt .
-
-RUN pip install -r requirements.txt
-
-COPY . .
-
+FROM python:3-alpine
+WORKDIR /app
+COPY ./ ./
+RUN apk add --no-cache postgresql-libs
+RUN apk add --no-cache --virtual .build-deps gcc musl-dev postgresql-dev
+RUN python3 -m pip install -r requirements.txt
 EXPOSE 8000
-
-RUN chmod +x start.sh
-CMD ["./start.sh"]
+CMD python3 manage.py makemigrations ; python3 manage.py migrate ; python3 manage.py runserver 0.0.0.0:8000
