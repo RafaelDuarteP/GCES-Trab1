@@ -18,7 +18,6 @@ class RegisterAPI(generics.GenericAPIView):
 
         return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
 
-
 @api_view(['POST'])
 def login_api(request):
     serializer = AuthTokenSerializer(data=request.data)
@@ -31,7 +30,7 @@ def login_api(request):
                 'username': user.username,
             },
             'token': token
-        },
+            },
             status=status.HTTP_201_CREATED
         )
     return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
