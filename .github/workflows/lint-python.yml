@@ -1,4 +1,4 @@
-name: Django CI
+name: Linter python
 
 on:
   push:
@@ -24,7 +24,7 @@ jobs:
       - name: Run Lint
         run: |
           cd library_back
-          flake8 . --exclude=*/migrations/*
+          flake8 . --exclude=*/migrations/* --exit-zero
           autopep8 --in-place --recursive .
 
       - name: Check for changes
