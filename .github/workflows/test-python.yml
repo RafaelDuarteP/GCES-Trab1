@@ -1,0 +1,45 @@
+name: Django CI
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 4
+      matrix:
+        python-version: [3.7, 3.8, 3.9]
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v3
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Initialize db
+        run: |
+          docker-compose up db
+
+      - name: Checkout to library_back
+        run: cd ./library_back
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run Tests
+        env:
+          POSTGRES_DB: library_db
+          POSTGRES_USER: admin
+          POSTGRES_PASSWORD: admin
+          POSTGRES_HOST: localhost
+          POSTGRES_PORT: 5432
+        run: |
+          python manage.py test
