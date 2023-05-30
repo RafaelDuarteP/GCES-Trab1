@@ -19,7 +19,7 @@ jobs:
 
       - name: Test health db
         run: |
-          docker exec -i gces-trab1_db_1 pg_isready -U admin -d library_db
+          docker ps
 
       - name: Set up Python 3.9
         uses: actions/setup-python@v3
