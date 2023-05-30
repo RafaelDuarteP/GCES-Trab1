@@ -1,10 +1,10 @@
 from dataclasses import dataclass
-import unittest
+import unittest2
 from .models import Book
 from .serializers import BookSerializer
 
 
-class BookTests(unittest.TestCase):
+class BookTests(unittest2.TestCase):
     def setUp(self) -> None:
         self.book_attr = {
             'title': 'Ensaio sobre a Cegueira',

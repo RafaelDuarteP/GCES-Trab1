@@ -11,4 +11,4 @@ python-dotenv==0.20.0
 pytz==2022.1
 sqlparse==0.4.2
 tzdata==2022.1
-unittest==3.11.3
+unittest2==1.1.0
