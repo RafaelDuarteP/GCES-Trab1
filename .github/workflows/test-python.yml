@@ -13,6 +13,14 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Start db
+        run: |
+          docker-compose up -d db
+
+      - name: Test health db
+        run: |
+          docker exec -it gces-trab1_api pg_isready -U admin -d library_db
+
       - name: Set up Python 3.9
         uses: actions/setup-python@v3
         with:
@@ -32,7 +40,6 @@ jobs:
           POSTGRES_HOST: localhost
           POSTGRES_PORT: 5432
         run: |
-          docker-compose up -d db
           cd library_back
           python manage.py test
 
