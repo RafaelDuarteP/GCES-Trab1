@@ -15,7 +15,7 @@ jobs:
 
       - name: Start db
         run: |
-          docker-compose up db
+          docker-compose up db -d
 
       - name: Set up Python 3-alpine
         uses: actions/setup-python@v3
