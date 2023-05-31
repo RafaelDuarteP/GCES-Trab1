@@ -49,38 +49,24 @@ jobs:
         run: |
           cd library_front
           npm test
-  test-api:
+  test-py:
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v3
 
-      - name: Build containers
-        run: |
-          docker-compose build
-
-      - name: Start containers
-        run: |
-          docker-compose up -d
-
-      - name: Test verify all containers run
-        run: |
-          docker ps
-
-      - name: Set up Python 3.9
+      - name: Set up python 3.9
         uses: actions/setup-python@v3
         with:
           python-version: 3.9
 
       - name: Install Dependencies
         run: |
+          cd library_back
           python -m pip install --upgrade pip
-          pip install pytest requests
+          pip install -r requirements.txt
 
       - name: Run tests
         run: |
-          pytest test-api.py
-
-      - name: Down containers
-        run: |
-          docker-compose down
+          cd library_back
+          python manage.py test
