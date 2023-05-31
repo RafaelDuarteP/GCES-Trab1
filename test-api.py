@@ -1,7 +1,7 @@
 import pytest
 import requests
 
-base_url = 'http://localhost:80/api'  # Substitua pela URL correta da API
+base_url = 'http://localhost:8000'
 
 
 @pytest.fixture
@@ -24,7 +24,10 @@ def register_user(username, email, first_name, last_name, password):
         'last_name': last_name,
         'password': password
     }
-    response = requests.post(url, json=data)
+    response = requests.post(
+        url,
+        json=data,
+    )
     return response.json()
 
 
