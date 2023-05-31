@@ -1,4 +1,4 @@
-name: Docker-compose execution
+name: Build and test workflow
 
 on:
   push:
@@ -29,3 +29,23 @@ jobs:
       - name: Down containers
         run: |
           docker-compose down
+  test-js:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Node 14
+        uses: actions/setup-node@v3
+        with:
+          node-version: 14
+
+      - name: Install Dependencies
+        run: |
+          cd library_front
+          npm install
+
+      - name: Run tests
+        run: |
+          cd library_front
+          npm test
