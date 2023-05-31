@@ -1,7 +1,7 @@
 import pytest
 import requests
 
-base_url = 'http://localhost:8080'  # Substitua pela URL correta da API
+base_url = 'http://localhost:80/api'  # Substitua pela URL correta da API
 
 
 @pytest.fixture
